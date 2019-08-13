@@ -1,7 +1,8 @@
-package co.com.ceiba.adn.estacionamiento.cristian.munoz
+package co.com.ceiba.adn.estacionamiento.cristian.munoz.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import co.com.ceiba.adn.estacionamiento.cristian.munoz.R
 
 class MainActivity : AppCompatActivity() {
 

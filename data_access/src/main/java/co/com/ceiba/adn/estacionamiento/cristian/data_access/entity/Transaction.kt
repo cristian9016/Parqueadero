@@ -6,12 +6,14 @@ import androidx.room.PrimaryKey
 
 @Entity
 class Transaction(
-    @PrimaryKey val id: Long,
+    @PrimaryKey val id: Long?,
     val placa: String,
     @ColumnInfo(name = "hora_ingreso")
     val horaIngreso: Long,
     @ColumnInfo(name = "hora_salida")
     var horaSalida: Long,
     @ColumnInfo(name = "type_vehiculo")
-    val typeVehiculo: Int
+    val typeVehiculo: Int,
+    var state: Boolean = true,
+    val cilindraje: Int
 )
