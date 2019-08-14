@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="small_radius">8dp</dimen>
+    <dimen name="border_width">2dp</dimen>
+    <dimen name="edit_text_normal_height">50dp</dimen>
+    <dimen name="btn_normal_height">50dp</dimen>
+    <dimen name="btn_normal_width">100dp</dimen>
+</resources>
