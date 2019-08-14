@@ -13,7 +13,7 @@ pipeline{
     //seccion que define las herramientas para autoinstalar y poner en la path
     tools{
         jdk 'JDK8_Centos' //preinstalada en la configuracion del master
-        gradle 'Gradle5.1_Centos' //preinstalada en la configuracion del master
+        gradle 'Gradle5.0_Centos' //preinstalada en la configuracion del master
     }
     //aqui comienzan los items del pipeline
     stages{
