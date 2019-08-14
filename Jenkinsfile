@@ -34,14 +34,13 @@ pipeline{
         stage('Compile'){
             steps{
                 echo "-------Compile----------"
-                sh 'gradle clean'
                 sh 'gradle build'
             }
         }
         stage('Unit Test'){
                     steps{
                         echo "-------UnitTest---------"
-                        sh 'gradle test'
+                        sh 'gradle testDebug'
                     }
         }
         stage('Static Code Analysis'){
