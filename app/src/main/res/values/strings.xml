@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Estacionamiento</string>
+    <string name="plate_number">Ingrese el numero de placa</string>
+    <string name="in_register_text">Registrar un Ingreso</string>
+    <string name="vehicle_type_text">Tipo de vehiculo :</string>
+    <string name="car_text">Carro</string>
+    <string name="moto_text">Motocicleta</string>
+    <string name="cilindraje_text">Cilindraje</string>
+    <string name="btn_accept_text">Aceptar</string>
+    <string name="out_register_text">Registrar una Salida</string>
+    <string name="value_to_pay_text">Valor a pagar</string>
+    <string name="calc_price_text">Calcular</string>
+    <string name="pay_text">Pagar</string>
 </resources>

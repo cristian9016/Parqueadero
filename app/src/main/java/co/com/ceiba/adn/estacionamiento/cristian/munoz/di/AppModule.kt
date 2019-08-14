@@ -10,6 +10,5 @@ val appModule = module {
 
     single { TransactionRepository(get()) }
     single { CalcPriceRepository(get()) }
-    viewModel { MainViewModel(get()) }
 
 }
