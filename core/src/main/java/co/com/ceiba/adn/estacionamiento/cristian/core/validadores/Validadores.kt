@@ -9,7 +9,7 @@ object Validadores {
 
     fun validarPlaca(placa: String, day: Int): Boolean {
         var authorized = true
-        if (placa.toUpperCase().startsWith("A") && (day != 0 && day != 1))
+        if (placa.toUpperCase().startsWith("A") && (day != Constants.SUNDAY && day != Constants.MONDAY))
             authorized = false
         return authorized
     }

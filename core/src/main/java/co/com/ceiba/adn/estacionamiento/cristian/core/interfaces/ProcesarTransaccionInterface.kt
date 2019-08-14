@@ -7,5 +7,5 @@ interface ProcesarTransaccionInterface {
     fun insertTransaction(transaccion: Transaccion):Observable<Int>
     fun getTransaction(placa: String): Transaccion?
     fun updateTransaction(transaccion: Transaccion):Observable<Unit>
-    fun checkNumberOfTransactionsByType(type:Int):Observable<Boolean>
+    fun validateCountOfPlaces(type:Int):Observable<Boolean>
 }

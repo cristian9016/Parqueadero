@@ -20,7 +20,7 @@ class TransactionRepository constructor(private val data: ProcessTransaction) {
         data.updateTransaction(EntityToModel.transactionEntity(transactionModel))
 
     fun checkNumberOfTransactionsByType(type:Int):Observable<Boolean> =
-        data.checkNumberOfTransactionsByType(type)
+        data.validateCountOfPlaces(type)
 
 
 

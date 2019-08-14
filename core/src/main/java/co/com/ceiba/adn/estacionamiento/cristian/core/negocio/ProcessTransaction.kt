@@ -25,7 +25,7 @@ class ProcessTransaction constructor(private val data: TransactionData) : Proces
     override fun getTransaction(placa: String): Transaccion? =
         data.getData(placa)
 
-    override fun checkNumberOfTransactionsByType(type: Int): Observable<Boolean> =
+    override fun validateCountOfPlaces(type: Int): Observable<Boolean> =
         Observable.fromCallable {
             val count = data.getNumberOfTransactionsByType(type)
             (type == Constants.TYPE_CAR && count < Constants.MAX_CARS) ||
