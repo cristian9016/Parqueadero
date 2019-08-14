@@ -34,7 +34,7 @@ pipeline{
         stage('Compile'){
             steps{
                 echo "-------Compile----------"
-                sh 'gradle build'
+                sh 'gradle build --stacktrace'
             }
         }
         stage('Unit Test'){
