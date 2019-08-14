@@ -12,8 +12,8 @@ pipeline{
     }
     //seccion que define las herramientas para autoinstalar y poner en la path
     tools{
-        jdk 'JDK7_Centos' //preinstalada en la configuracion del master
-        gradle 'Gradle4.5_Centos' //preinstalada en la configuracion del master
+        jdk 'JDK8_Centos' //preinstalada en la configuracion del master
+        gradle 'Gradle5.1_Centos' //preinstalada en la configuracion del master
     }
     //aqui comienzan los items del pipeline
     stages{
@@ -67,7 +67,7 @@ pipeline{
         }
         failure{
             echo 'This will run only if failed'
-             mail (to: 'cristian.munoz@ceiba.com.co​',subject: "​Failed Pipeline:${currentBuild.fullDisplayName}​",body: "​Something is wrong with ${env.BUILD_URL}​")
+            mail (to: 'cristian.munoz@ceiba.com.co​',subject: "​Failed Pipeline:${currentBuild.fullDisplayName}​",body: "​Something is wrong with ${env.BUILD_URL}​")
         }
         unstable{
             echo 'esto solo corre si la ejecucion fue marcada como inestable'
