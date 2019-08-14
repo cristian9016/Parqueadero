@@ -7,18 +7,21 @@ import io.reactivex.Observable
 
 class TransactionRepository constructor(private val data: ProcessTransaction) {
 
-    fun insertTransaction(transactionModel: TransactionModel): Observable<Boolean> =
+    fun insertTransaction(transactionModel: TransactionModel): Observable<Int> =
         data.insertTransaction(EntityToModel.transactionEntity(transactionModel))
 
     fun getTransaction(placa: String): Observable<TransactionModel> =
-        data.getTransaction(placa)
-            .toObservable()
+        Observable.fromCallable { data.getTransaction(placa) }
             .map {
                 EntityToModel.transactionModel(it)
             }
 
     fun updateTransaction(transactionModel: TransactionModel): Observable<Unit> =
         data.updateTransaction(EntityToModel.transactionEntity(transactionModel))
+
+    fun checkNumberOfTransactionsByType(type:Int):Observable<Boolean> =
+        data.checkNumberOfTransactionsByType(type)
+
 
 
 }

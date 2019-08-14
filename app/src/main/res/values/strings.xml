@@ -11,4 +11,18 @@
     <string name="value_to_pay_text">Valor a pagar</string>
     <string name="calc_price_text">Calcular</string>
     <string name="pay_text">Pagar</string>
+
+    //toast
+    <string name="empty_fields">No debe haber campos vacios</string>
+    <string name="placa_size">La placa debe tener al menos 5 caracteres</string>
+
+    //alert
+    <string name="info_title">Información</string>
+    <string name="inserted_correctly">Se agrego correctamente.</string>
+    <string name="unauthorized_plate">Placa no autorizada en este día.</string>
+    <string name="unknown_error">Error desconocido, intente nuevamente.</string>
+    <string name="please_wait">Por favor espere…</string>
+    <string name="not_found_vehicle">Vehiculo no encontrado.</string>
+    <string name="parking_full">Al estacionamiento no le caben mas vehiculos de este tipo.</string>
+    <string name="vehicle_exist">El vehiculo ya se encuentra registrado.</string>
 </resources>

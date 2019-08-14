@@ -1,10 +1,10 @@
 package co.com.ceiba.adn.estacionamiento.cristian.data_access.interfaces
 
-import co.com.ceiba.adn.estacionamiento.cristian.data_access.entity.Transaction
-import io.reactivex.Flowable
+import co.com.ceiba.adn.estacionamiento.cristian.data_access.entity.Transaccion
 
 interface DataInterface {
-    fun insertData(transaction: Transaction)
-    fun getData(placa:String): Flowable<Transaction>
-    fun updateData(transaction: Transaction)
+    fun insertData(transaccion: Transaccion)
+    fun getData(placa:String): Transaccion
+    fun updateData(transaccion: Transaccion)
+    fun getNumberOfTransactionsByType(type:Int):Int
 }

@@ -29,7 +29,7 @@ dependencies {
     def room_version = "2.2.0-alpha02"
     def arch_version = "1.1.1"
     def rxbindings_version = "2.1.1"
-
+    def anko_version = "0.10.8"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -47,6 +47,7 @@ dependencies {
     //injeccion de dependencias
     implementation "org.koin:koin-core:2.0.1"
     implementation "org.koin:koin-androidx-viewmodel:2.0.1"
+//    implementation 'org.koin:koin-android-viewmodel:2.0.1'
 
     //room
     implementation "androidx.room:room-runtime:$room_version"
@@ -54,7 +55,7 @@ dependencies {
 
     //lifecycle
     implementation "android.arch.lifecycle:extensions:$arch_version"
-    annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
+    kapt "android.arch.lifecycle:compiler:$arch_version"
     //rx
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation "io.reactivex.rxjava2:rxjava:2.2.9"
@@ -63,4 +64,6 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbindings_version"
     implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$rxbindings_version"
+    //anko
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
 }

@@ -6,11 +6,20 @@ object Constants {
     const val TYPE_CAR = 0
     const val TYPE_MOTORCYCLE = 1
 
+    //total vehicles
+    const val MAX_CARS = 20
+    const val MAX_MOTORCYCLES = 10
     //prices
     const val CAR_HOUR = 1000
     const val MOTORCYCLE_HOUR = 500
     const val CAR_DAY = 8000
     const val MOTORCYCLE_DAY = 4000
     const val EXTRA_MOTO = 2000
+
+    //message codes
+    const val INSERT_SUCCESS = 0
+    const val ERROR_CODE_PARKING_FULL = 1
+    const val ERROR_CODE_VECHICLE_EXIST = 2
+    const val ERROR_CODE_UNAUTHORIZED_PLATE = 3
 
 }

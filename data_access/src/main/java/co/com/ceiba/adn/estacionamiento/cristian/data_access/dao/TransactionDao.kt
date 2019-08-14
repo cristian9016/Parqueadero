@@ -4,19 +4,21 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import co.com.ceiba.adn.estacionamiento.cristian.data_access.entity.Transaction
-import io.reactivex.Flowable
+import co.com.ceiba.adn.estacionamiento.cristian.data_access.entity.Transaccion
 
 @Dao
 interface TransactionDao {
 
     @Insert
-    fun insertTransaction(transaction: Transaction)
+    fun insertTransaction(transaccion: Transaccion)
 
-    @Query("select * from `transaction` where placa = :placa and state = true")
-    fun getTransaction(placa: String): Flowable<Transaction>
+    @Query("SELECT * FROM transaccion WHERE placa LIKE :placa and state = 1")
+    fun getTransaction(placa: String): Transaccion
 
     @Update
-    fun updateTransaction(transaction: Transaction)
+    fun updateTransaction(transaccion: Transaccion)
+
+    @Query("SELECT count(*) from transaccion where type_vehiculo = :type and state = 1")
+    fun validateNumberOfVehicles(type: Int): Int
 
 }

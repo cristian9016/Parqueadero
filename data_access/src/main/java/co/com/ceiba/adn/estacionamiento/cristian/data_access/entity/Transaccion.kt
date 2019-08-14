@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class Transaction(
+data class Transaccion(
     @PrimaryKey val id: Long?,
     val placa: String,
     @ColumnInfo(name = "hora_ingreso")
