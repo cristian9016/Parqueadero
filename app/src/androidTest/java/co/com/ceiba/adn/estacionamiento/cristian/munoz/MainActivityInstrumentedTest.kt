@@ -55,4 +55,16 @@ class MainActivityInstrumentedTest {
             .check(matches(withText(Constants.CAR_HOUR.toString())))
     }
 
+    @Test
+    fun dVerifyPayment() {
+        onView(withId(R.id.etPlaca))
+            .perform(typeText(placa), closeSoftKeyboard())
+        onView(withId(R.id.btnCalcPrice))
+            .perform(click())
+        onView(withId(R.id.btnPayment))
+            .perform(click())
+        onView(withText(R.string.payment_succeed))
+            .check(matches(isDisplayed()))
+    }
+
 }

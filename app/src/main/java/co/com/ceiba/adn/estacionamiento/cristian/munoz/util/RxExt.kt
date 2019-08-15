@@ -14,12 +14,14 @@ fun <T> Observable<T>.applySchedulers(): Observable<T> = compose {
 
 fun AppCompatActivity.validateForm(
     messageEmptyfields: Int,
-    messagePlacaSize:Int,
+    messagePlacaMin:Int,
+    messagePlacaMax:Int,
     vararg fields: String
 ): Observable<List<String>> = Observable.create<List<String>> {
     when {
         fields.contains("") -> Toast.makeText(this, messageEmptyfields, Toast.LENGTH_SHORT).show()
-        fields[0].length < 5 -> Toast.makeText(this, messagePlacaSize, Toast.LENGTH_SHORT).show()
+        fields[0].length < 5 -> Toast.makeText(this, messagePlacaMin, Toast.LENGTH_SHORT).show()
+        fields[0].length > 6 -> Toast.makeText(this, messagePlacaMax, Toast.LENGTH_SHORT).show()
         else -> it.onNext(fields.toList())
     }
     it.onComplete()

@@ -2,8 +2,8 @@ package co.com.ceiba.adn.estacionamiento.cristian.core
 
 import co.com.ceiba.adn.estacionamiento.cristian.core.util.Constants
 import co.com.ceiba.adn.estacionamiento.cristian.core.validadores.Validadores
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.Assert.*
 
 class ValidadoresTest {
 

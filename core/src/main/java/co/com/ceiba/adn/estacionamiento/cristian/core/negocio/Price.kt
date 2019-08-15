@@ -7,7 +7,7 @@ import io.reactivex.Observable
 
 class Price {
 
-    fun price(inDate: Long, outDate: Long, typeVehicle: Int, cilindraje: Int): Observable<Int> =
+    fun getPrice(inDate: Long, outDate: Long, typeVehicle: Int, cilindraje: Int): Observable<Int> =
         Observable.create {
             val hours = calcHours(outDate - inDate)
             var total = calcPrice(hours, typeVehicle, cilindraje)

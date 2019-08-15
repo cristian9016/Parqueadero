@@ -35,7 +35,7 @@ class MainViewModel constructor(
 
     fun calcPrice(placa: String) = getTransaction(placa)
         .flatMap {
-            priceRepository.calcPrice(it.horaIngreso, Date().time, it.typeVehiculo, it.cilindraje!!)
+            priceRepository.getPrice(it.horaIngreso, Date().time, it.typeVehiculo, it.cilindraje!!)
         }
         .applySchedulers()
 

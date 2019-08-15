@@ -38,7 +38,7 @@ class ProcessTransactionTest {
         Mockito.`when`(dataMock.getData("kjh18")).thenReturn(null)
         Mockito.doNothing().`when`(dataMock).insertData(transaction)
         //act
-        processTransaction.insertTransaction(transaction)
+        processTransaction.insertData(transaction)
             .subscribe {
                 value = it
             }
@@ -51,7 +51,7 @@ class ProcessTransactionTest {
         //arrange
         Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_CAR)).thenReturn(19)
         //act
-        processTransaction.validateCountOfPlaces(Constants.TYPE_CAR)
+        processTransaction.getNumberOfTransactionsByType(Constants.TYPE_CAR)
             .subscribe {
                 state = it
             }
@@ -64,7 +64,7 @@ class ProcessTransactionTest {
         //arrange
         Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_CAR)).thenReturn(20)
         //act
-        processTransaction.validateCountOfPlaces(Constants.TYPE_CAR)
+        processTransaction.getNumberOfTransactionsByType(Constants.TYPE_CAR)
             .subscribe {
                 state = it
             }
@@ -77,7 +77,7 @@ class ProcessTransactionTest {
         //arrange
         Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)).thenReturn(9)
         //act
-        processTransaction.validateCountOfPlaces(Constants.TYPE_MOTORCYCLE)
+        processTransaction.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)
             .subscribe {
                 state = it
             }
@@ -90,7 +90,7 @@ class ProcessTransactionTest {
         //arrange
         Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)).thenReturn(10)
         //act
-        processTransaction.validateCountOfPlaces(Constants.TYPE_MOTORCYCLE)
+        processTransaction.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)
             .subscribe {
                 state = it
             }

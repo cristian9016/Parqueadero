@@ -6,10 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import co.com.ceiba.adn.estacionamiento.cristian.core.util.Constants
 import co.com.ceiba.adn.estacionamiento.cristian.munoz.R
-import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.LifeDisposable
-import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.toInt
-import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.toText
-import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.validateForm
+import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.*
 import com.jakewharton.rxbinding2.view.clicks
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +24,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //set no emojis filter to editText
+        etPlaca.noEmojis()
+        etCilindraje.noEmojis()
 
         //progress dialog config
         configDialog()
@@ -53,7 +54,8 @@ class MainActivity : AppCompatActivity() {
                 //se valida que los campos no esten vacios
                 validateForm(
                     R.string.empty_fields,
-                    R.string.placa_size,
+                    R.string.placa_min_size,
+                    R.string.placa_max_size,
                     etPlaca.toText(),
                     if (etCilindraje.toText().isNotEmpty()) etCilindraje.toText() else "0"
                 )
@@ -92,7 +94,12 @@ class MainActivity : AppCompatActivity() {
         //------------------------calcular precio--------------------------
         dis add btnCalcPrice.clicks()
             .flatMap {
-                validateForm(R.string.empty_fields, R.string.placa_size, etPlaca.toText())
+                validateForm(
+                    R.string.empty_fields,
+                    R.string.placa_min_size,
+                    R.string.placa_max_size,
+                    etPlaca.toText()
+                )
             }
             .flatMap {
                 progress.show()
@@ -120,7 +127,12 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun pay() = validateForm(R.string.empty_fields, R.string.placa_size, etPlaca.toText())
+    private fun pay() = validateForm(
+        R.string.empty_fields,
+        R.string.placa_min_size,
+        R.string.placa_max_size,
+        etPlaca.toText()
+    )
         .flatMap {
             progress.show()
             mainViewModel.payment(it[0], tvValueToPay.toInt())

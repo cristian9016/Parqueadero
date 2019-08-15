@@ -14,7 +14,8 @@
 
     //toast
     <string name="empty_fields">No debe haber campos vacios</string>
-    <string name="placa_size">La placa debe tener al menos 5 caracteres</string>
+    <string name="placa_min_size">La placa debe tener al menos 5 caracteres</string>
+    <string name="placa_max_size">La placa debe tener maximo 6 caracteres</string>
 
     //alert
     <string name="info_title">Información</string>

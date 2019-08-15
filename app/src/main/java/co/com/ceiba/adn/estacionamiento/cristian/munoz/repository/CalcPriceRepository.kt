@@ -1,11 +1,12 @@
 package co.com.ceiba.adn.estacionamiento.cristian.munoz.repository
 
+import co.com.ceiba.adn.estacionamiento.cristian.core.interfaces.PriceInterface
 import co.com.ceiba.adn.estacionamiento.cristian.core.negocio.Price
-import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.applySchedulers
+import io.reactivex.Observable
 
-class CalcPriceRepository constructor(private val price: Price) {
+class CalcPriceRepository constructor(private val price: Price) : PriceInterface {
 
-    fun calcPrice(inDate: Long, outDate: Long, typeVehicle: Int, cilindraje: Int) =
-        price.price(inDate, outDate, typeVehicle, cilindraje)
+    override fun getPrice(inDate: Long, outDate: Long, typeVehicle: Int, cilindraje: Int): Observable<Int> =
+        price.getPrice(inDate, outDate, typeVehicle, cilindraje)
 
 }

@@ -22,7 +22,7 @@ class PriceTest {
     fun validatePriceCar4Hours() {
         var result = 0
         //act
-        price.price(inDate, outDate, Constants.TYPE_CAR, 0)
+        price.getPrice(inDate, outDate, Constants.TYPE_CAR, 0)
             .subscribe {
                 result = it
             }
@@ -33,7 +33,7 @@ class PriceTest {
     fun validatePriceMoto4Hours() {
         var result = 0
         //act
-        price.price(inDate, outDate, Constants.TYPE_MOTORCYCLE, 0)
+        price.getPrice(inDate, outDate, Constants.TYPE_MOTORCYCLE, 0)
             .subscribe {
                 result = it
             }
@@ -44,7 +44,7 @@ class PriceTest {
     fun validatePriceMoto4Hours650cc() {
         var result = 0
         //act
-        price.price(inDate, outDate, Constants.TYPE_MOTORCYCLE, 650)
+        price.getPrice(inDate, outDate, Constants.TYPE_MOTORCYCLE, 650)
             .subscribe {
                 result = it
             }
