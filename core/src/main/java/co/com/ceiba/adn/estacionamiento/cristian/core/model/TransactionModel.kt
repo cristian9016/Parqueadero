@@ -7,5 +7,6 @@ class TransactionModel(
     var horaSalida: Long = 0,
     val typeVehiculo: Int,
     var state: Boolean = true,
-    val cilindraje:Int? = 0
+    val cilindraje:Int? = 0,
+    var price:Int? = 0
 )

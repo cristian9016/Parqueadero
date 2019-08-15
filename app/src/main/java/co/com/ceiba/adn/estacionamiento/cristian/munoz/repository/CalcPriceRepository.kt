@@ -7,6 +7,5 @@ class CalcPriceRepository constructor(private val price: Price) {
 
     fun calcPrice(inDate: Long, outDate: Long, typeVehicle: Int, cilindraje: Int) =
         price.price(inDate, outDate, typeVehicle, cilindraje)
-            .applySchedulers()
 
 }

@@ -6,7 +6,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import co.com.ceiba.adn.estacionamiento.cristian.core.util.Constants
 import co.com.ceiba.adn.estacionamiento.cristian.munoz.R
-import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.text
+import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.LifeDisposable
+import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.toInt
+import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.toText
 import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.validateForm
 import com.jakewharton.rxbinding2.view.clicks
 import io.reactivex.rxkotlin.subscribeBy
@@ -20,8 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
     lateinit var progress: ProgressDialog
+    val dis = LifeDisposable(this)
 
-    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         //progress dialog config
         configDialog()
 
-        //radio group listener
+        //---------------------radio group listener---------------------
         rgTypeVehicle.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.rbCarro -> {
@@ -39,26 +41,25 @@ class MainActivity : AppCompatActivity() {
                 else -> etCilindraje.isEnabled = true
             }
         }
+    }
 
-        //click en boton de agregar transaction
-        btnAddIn.clicks()
+    @SuppressLint("CheckResult")
+    override fun onResume() {
+        super.onResume()
+
+        //--------------------click en boton de agregar transaction------------------------
+        dis add btnAddIn.clicks()
             .flatMap {
                 //se valida que los campos no esten vacios
-                progress.show()
-                if (rbMoto.isChecked) validateForm(
+                validateForm(
                     R.string.empty_fields,
                     R.string.placa_size,
-                    etPlaca.text(),
-                    etCilindraje.text()
-                )
-                else validateForm(
-                    R.string.empty_fields,
-                    R.string.placa_size,
-                    etPlaca.text(),
-                    "0"
+                    etPlaca.toText(),
+                    if (etCilindraje.toText().isNotEmpty()) etCilindraje.toText() else "0"
                 )
             }
             .flatMap {
+                progress.show()
                 //se inserta la transaccion
                 mainViewModel.insertTransaction(
                     it[0],
@@ -69,18 +70,18 @@ class MainActivity : AppCompatActivity() {
             .subscribeBy(
                 onNext = {
                     progress.hide()
-                    when(it){
+                    when (it) {
                         Constants.INSERT_SUCCESS -> {
                             alert(R.string.info_title, R.string.inserted_correctly)
                             rbCarro.isChecked = true
                         }
-                        Constants.ERROR_CODE_UNAUTHORIZED_PLATE -> alert(R.string.info_title, R.string.unauthorized_plate)
+                        Constants.ERROR_CODE_UNAUTHORIZED_PLATE -> alert(
+                            R.string.info_title,
+                            R.string.unauthorized_plate
+                        )
                         Constants.ERROR_CODE_PARKING_FULL -> alert(R.string.info_title, R.string.parking_full)
                         Constants.ERROR_CODE_VECHICLE_EXIST -> alert(R.string.info_title, R.string.vehicle_exist)
                     }
-                },
-                onComplete = {
-                    progress.hide()
                 },
                 onError = {
                     it.printStackTrace()
@@ -88,13 +89,15 @@ class MainActivity : AppCompatActivity() {
                     progress.hide()
                 }
             )
-        //calcular precio
-        btnCalcPrice.clicks()
+        //------------------------calcular precio--------------------------
+        dis add btnCalcPrice.clicks()
+            .flatMap {
+                validateForm(R.string.empty_fields, R.string.placa_size, etPlaca.toText())
+            }
             .flatMap {
                 progress.show()
-                validateForm(R.string.empty_fields, R.string.placa_size, etPlaca.text())
+                mainViewModel.calcPrice(it[0])
             }
-            .flatMap { mainViewModel.calcPrice(it[0]) }
             .subscribeBy(
                 onNext = {
                     progress.hide()
@@ -102,14 +105,38 @@ class MainActivity : AppCompatActivity() {
                 },
                 onError = {
                     it.printStackTrace()
+                    tvValueToPay.text = getString(R.string.value_to_pay_text)
                     alert(R.string.info_title, R.string.not_found_vehicle)
-                    progress.hide()
-                },
-                onComplete = {
                     progress.hide()
                 }
             )
+
+        //-----------------------realizar el pago----------------------------------------
+        dis add btnPayment.clicks()
+            .subscribe {
+                if (tvValueToPay.text == getString(R.string.value_to_pay_text))
+                    alert(R.string.info_title, R.string.calc_value_to_pay_first)
+                else pay()
+            }
     }
+
+    private fun pay() = validateForm(R.string.empty_fields, R.string.placa_size, etPlaca.toText())
+        .flatMap {
+            progress.show()
+            mainViewModel.payment(it[0], tvValueToPay.toInt())
+        }
+        .subscribeBy(
+            onNext = {
+                progress.hide()
+                alert(R.string.info_title, R.string.payment_succeed)
+            },
+            onError = {
+                it.printStackTrace()
+                alert(R.string.info_title, R.string.unknown_error)
+                tvValueToPay.text = getString(R.string.value_to_pay_text)
+                progress.hide()
+            }
+        )
 
 
     //dialog

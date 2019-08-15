@@ -25,4 +25,6 @@
     <string name="not_found_vehicle">Vehiculo no encontrado.</string>
     <string name="parking_full">Al estacionamiento no le caben mas vehiculos de este tipo.</string>
     <string name="vehicle_exist">El vehiculo ya se encuentra registrado.</string>
+    <string name="calc_value_to_pay_first">Primero calcule el valor a pagar</string>
+    <string name="payment_succeed">Pagado</string>
 </resources>

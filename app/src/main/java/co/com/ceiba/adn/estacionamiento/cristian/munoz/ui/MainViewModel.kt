@@ -25,17 +25,22 @@ class MainViewModel constructor(
                     )
                 else Observable.create { emmiter ->
                     emmiter.onNext(Constants.ERROR_CODE_PARKING_FULL)
+                    emmiter.onComplete()
                 }
             }
             .applySchedulers()
 
-    fun getTransaction(placa: String) =
-        transactionRepo.getTransaction(placa)
-            .applySchedulers()
+    private fun getTransaction(placa: String) =
+        transactionRepo.getTransaction(placa).toObservable()
 
     fun calcPrice(placa: String) = getTransaction(placa)
         .flatMap {
             priceRepository.calcPrice(it.horaIngreso, Date().time, it.typeVehiculo, it.cilindraje!!)
         }
         .applySchedulers()
+
+    fun payment(placa: String, price: Int) = getTransaction(placa)
+        .flatMap {
+            transactionRepo.updateTransaction(it, price)
+        }.applySchedulers()
 }

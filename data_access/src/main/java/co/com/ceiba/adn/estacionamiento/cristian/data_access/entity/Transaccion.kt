@@ -15,5 +15,6 @@ data class Transaccion(
     @ColumnInfo(name = "type_vehiculo")
     val typeVehiculo: Int,
     var state: Boolean = true,
-    val cilindraje: Int
+    val cilindraje: Int,
+    var price:Int? = 0
 )

@@ -30,6 +30,8 @@ dependencies {
     def arch_version = "1.1.1"
     def rxbindings_version = "2.1.1"
     def anko_version = "0.10.8"
+    def coreVersion = "1.2.1-alpha02"
+    def extJUnitVersion = "1.1.1"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -39,6 +41,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Testing-only dependencies
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    androidTestImplementation 'androidx.test:core:' + coreVersion
+    androidTestImplementation 'androidx.test:core-ktx:' + coreVersion
+    androidTestImplementation 'androidx.test.ext:junit:' + extJUnitVersion
+    androidTestImplementation 'androidx.test.ext:junit-ktx:' + extJUnitVersion
 
     //modulos
     implementation project(':core')

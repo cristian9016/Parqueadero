@@ -6,6 +6,6 @@ import io.reactivex.Observable
 interface ProcesarTransaccionInterface {
     fun insertTransaction(transaccion: Transaccion):Observable<Int>
     fun getTransaction(placa: String): Transaccion?
-    fun updateTransaction(transaccion: Transaccion):Observable<Unit>
+    fun updateTransaction(transaccion: Transaccion,price:Int):Observable<Unit>
     fun validateCountOfPlaces(type:Int):Observable<Boolean>
 }

@@ -32,8 +32,11 @@ class ProcessTransaction constructor(private val data: TransactionData) : Proces
                     (type == Constants.TYPE_MOTORCYCLE && count < Constants.MAX_MOTORCYCLES)
         }
 
-    override fun updateTransaction(transaccion: Transaccion): Observable<Unit> =
+    override fun updateTransaction(transaccion: Transaccion, price: Int): Observable<Unit> =
         Observable.fromCallable {
+            transaccion.horaSalida = Date().time
+            transaccion.state = false
+            transaccion.price = price
             data.updateData(transaccion)
         }
 

@@ -12,6 +12,7 @@ class Price {
             val hours = calcHours(outDate - inDate)
             var total = calcPrice(hours, typeVehicle, cilindraje)
             it.onNext(total)
+            it.onComplete()
         }
 
 }
