@@ -66,4 +66,5 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$rxbindings_version"
     //anko
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    //mockito
 }
