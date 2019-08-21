@@ -10,11 +10,7 @@ pipeline{
         //no permitir ejecuciones concurrentes de puiupeline
         disableConcurrentBuilds()
     }
-    //seccion que define las herramientas para autoinstalar y poner en la path
-    tools{
-        jdk 'JDK8_Centos' //preinstalada en la configuracion del master
-        gradle 'Gradle5.0_Centos' //preinstalada en la configuracion del master
-    }
+
     //aqui comienzan los items del pipeline
     stages{
         stage('Checkout'){
@@ -34,13 +30,15 @@ pipeline{
         stage('Compile'){
             steps{
                 echo "-------Compile----------"
-                sh 'gradle build --stacktrace'
+                sh 'chmod u+x gradlew'
+                sh './gradlew clean'
+                sh './gradlew build --stacktrace'
             }
         }
         stage('Unit Test'){
                     steps{
                         echo "-------UnitTest---------"
-                        sh 'gradle testDebug'
+                        sh './gradlew test'
                     }
         }
         stage('Static Code Analysis'){
@@ -53,7 +51,7 @@ pipeline{
         stage('Build'){
             steps{
                 echo "---------------build------------"
-                sh 'gradle build -x test'
+                sh './gradlew build -x test'
             }
         }
     }
