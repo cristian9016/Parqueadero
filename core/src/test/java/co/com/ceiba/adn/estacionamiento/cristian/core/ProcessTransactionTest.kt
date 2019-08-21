@@ -2,6 +2,7 @@ package co.com.ceiba.adn.estacionamiento.cristian.core
 
 import co.com.ceiba.adn.estacionamiento.cristian.core.negocio.ProcessTransaction
 import co.com.ceiba.adn.estacionamiento.cristian.core.util.Constants
+import co.com.ceiba.adn.estacionamiento.cristian.core.util.EntityToModel
 import co.com.ceiba.adn.estacionamiento.cristian.data_access.entity.Transaccion
 import co.com.ceiba.adn.estacionamiento.cristian.data_access.interfaces.DataInterface
 import co.com.ceiba.adn.estacionamiento.cristian.data_access.manage_data.TransactionData
@@ -34,11 +35,10 @@ class ProcessTransactionTest {
     @Test
     fun validateInsertTransaction() {
         //arrange
-
         Mockito.`when`(dataMock.getData("kjh18")).thenReturn(null)
         Mockito.doNothing().`when`(dataMock).insertData(transaction)
         //act
-        processTransaction.insertData(transaction)
+        processTransaction.processTransactionForInsertion(EntityToModel.transactionModel(transaction))
             .subscribe {
                 value = it
             }
@@ -51,7 +51,7 @@ class ProcessTransactionTest {
         //arrange
         Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_CAR)).thenReturn(19)
         //act
-        processTransaction.getNumberOfTransactionsByType(Constants.TYPE_CAR)
+        processTransaction.checkNumberOfTransactionsByType(Constants.TYPE_CAR)
             .subscribe {
                 state = it
             }
@@ -64,7 +64,7 @@ class ProcessTransactionTest {
         //arrange
         Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_CAR)).thenReturn(20)
         //act
-        processTransaction.getNumberOfTransactionsByType(Constants.TYPE_CAR)
+        processTransaction.checkNumberOfTransactionsByType(Constants.TYPE_CAR)
             .subscribe {
                 state = it
             }
@@ -75,9 +75,10 @@ class ProcessTransactionTest {
     @Test
     fun validateSpacesForMotos() {
         //arrange
-        Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)).thenReturn(9)
+        Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE))
+            .thenReturn(9)
         //act
-        processTransaction.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)
+        processTransaction.checkNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)
             .subscribe {
                 state = it
             }
@@ -88,9 +89,10 @@ class ProcessTransactionTest {
     @Test
     fun validateNoSpacesForMotos() {
         //arrange
-        Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)).thenReturn(10)
+        Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE))
+            .thenReturn(10)
         //act
-        processTransaction.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)
+        processTransaction.checkNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)
             .subscribe {
                 state = it
             }

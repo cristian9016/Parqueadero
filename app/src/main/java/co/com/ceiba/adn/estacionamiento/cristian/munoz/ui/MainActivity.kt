@@ -10,7 +10,6 @@ import co.com.ceiba.adn.estacionamiento.cristian.munoz.util.*
 import com.jakewharton.rxbinding2.view.clicks
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.yesButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -62,38 +61,29 @@ class MainActivity : AppCompatActivity() {
             }
             .flatMap {
                 progress.show()
-                //se inserta la transaccion
+                //se inicia el proceso de insercion la transaccion
                 mainViewModel.insertTransaction(
                     it[0],
                     if (rbCarro.isChecked) Constants.TYPE_CAR else Constants.TYPE_MOTORCYCLE,
                     it[1].toInt()
                 )
             }
-            .subscribeBy(
+            .subscribeBy( //resultado del proceso de insercion
                 onNext = {
                     progress.hide()
                     when (it) {
                         Constants.INSERT_SUCCESS -> {
-                            alert(R.string.info_title, R.string.inserted_correctly)
+                            infoAlert(R.string.inserted_correctly)
                             rbCarro.isChecked = true
                         }
-                        Constants.ERROR_CODE_UNAUTHORIZED_PLATE -> alert(
-                            R.string.info_title,
-                            R.string.unauthorized_plate
-                        )
-                        Constants.ERROR_CODE_PARKING_FULL -> alert(
-                            R.string.info_title,
-                            R.string.parking_full
-                        )
-                        Constants.ERROR_CODE_VECHICLE_EXIST -> alert(
-                            R.string.info_title,
-                            R.string.vehicle_exist
-                        )
+                        Constants.ERROR_CODE_UNAUTHORIZED_PLATE -> infoAlert(R.string.unauthorized_plate)
+                        Constants.ERROR_CODE_PARKING_FULL -> infoAlert(R.string.parking_full)
+                        Constants.ERROR_CODE_VECHICLE_EXIST -> infoAlert(R.string.vehicle_exist)
                     }
                 },
                 onError = {
                     it.printStackTrace()
-                    alert(R.string.info_title, R.string.unknown_error)
+                    infoAlert(R.string.unknown_error)
                     progress.hide()
                 }
             )
@@ -115,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                 onNext = {
                     when (it) {
                         Constants.ERROR_CODE_VEHICLE_DOES_NOT_EXIST -> {
-                            alert(R.string.info_title, R.string.not_found_vehicle)
+                            infoAlert(R.string.not_found_vehicle)
                             tvValueToPay.text = getString(R.string.value_to_pay_text)
                         }
                         else -> tvValueToPay.text = it.toString()
@@ -132,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         dis add btnPayment.clicks()
             .subscribe {
                 if (tvValueToPay.text == getString(R.string.value_to_pay_text))
-                    alert(R.string.info_title, R.string.calc_value_to_pay_first)
+                    infoAlert(R.string.calc_value_to_pay_first)
                 else pay()
             }
     }
@@ -150,11 +140,11 @@ class MainActivity : AppCompatActivity() {
         .subscribeBy(
             onNext = {
                 progress.hide()
-                alert(R.string.info_title, R.string.payment_succeed)
+                infoAlert(R.string.payment_succeed)
             },
             onError = {
                 it.printStackTrace()
-                alert(R.string.info_title, R.string.unknown_error)
+                infoAlert(R.string.unknown_error)
                 tvValueToPay.text = getString(R.string.value_to_pay_text)
                 progress.hide()
             }
@@ -168,10 +158,4 @@ class MainActivity : AppCompatActivity() {
         progress.hide()
     }
 
-    //alert
-    private fun alert(titleMsg: Int, bodyMsg: Int) = alert {
-        title = getString(titleMsg)
-        message = getString(bodyMsg)
-        yesButton { title = getString(R.string.btn_accept_text) }
-    }.show()
 }
