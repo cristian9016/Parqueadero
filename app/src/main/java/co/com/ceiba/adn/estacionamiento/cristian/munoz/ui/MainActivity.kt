@@ -81,8 +81,14 @@ class MainActivity : AppCompatActivity() {
                             R.string.info_title,
                             R.string.unauthorized_plate
                         )
-                        Constants.ERROR_CODE_PARKING_FULL -> alert(R.string.info_title, R.string.parking_full)
-                        Constants.ERROR_CODE_VECHICLE_EXIST -> alert(R.string.info_title, R.string.vehicle_exist)
+                        Constants.ERROR_CODE_PARKING_FULL -> alert(
+                            R.string.info_title,
+                            R.string.parking_full
+                        )
+                        Constants.ERROR_CODE_VECHICLE_EXIST -> alert(
+                            R.string.info_title,
+                            R.string.vehicle_exist
+                        )
                     }
                 },
                 onError = {
@@ -107,13 +113,17 @@ class MainActivity : AppCompatActivity() {
             }
             .subscribeBy(
                 onNext = {
+                    when (it) {
+                        Constants.ERROR_CODE_VEHICLE_DOES_NOT_EXIST -> {
+                            alert(R.string.info_title, R.string.not_found_vehicle)
+                            tvValueToPay.text = getString(R.string.value_to_pay_text)
+                        }
+                        else -> tvValueToPay.text = it.toString()
+                    }
                     progress.hide()
-                    tvValueToPay.text = it.toString()
                 },
                 onError = {
                     it.printStackTrace()
-                    tvValueToPay.text = getString(R.string.value_to_pay_text)
-                    alert(R.string.info_title, R.string.not_found_vehicle)
                     progress.hide()
                 }
             )

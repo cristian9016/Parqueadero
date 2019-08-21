@@ -21,7 +21,8 @@ object Constants {
     const val ERROR_CODE_PARKING_FULL = 1
     const val ERROR_CODE_VECHICLE_EXIST = 2
     const val ERROR_CODE_UNAUTHORIZED_PLATE = 3
-    const val ERROR_CODE_VEHICLE_DOES_NOT_EXIST = 4
+    const val ERROR_CODE_AUTHORIZED_PLATE = 4
+    const val ERROR_CODE_VEHICLE_DOES_NOT_EXIST = 5
 
     //days
     const val SUNDAY = 1

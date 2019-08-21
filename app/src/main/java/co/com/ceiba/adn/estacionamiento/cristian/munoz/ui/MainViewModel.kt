@@ -20,7 +20,10 @@ class MainViewModel constructor(
                 if (it)
                     transactionRepo.insertTransaction(
                         TransactionModel(
-                            placa = placa, horaIngreso = Date().time, typeVehiculo = type, cilindraje = cilindraje
+                            placa = placa,
+                            horaIngreso = Date().time,
+                            typeVehiculo = type,
+                            cilindraje = cilindraje
                         )
                     )
                 else Observable.create { emmiter ->
@@ -31,16 +34,26 @@ class MainViewModel constructor(
             .applySchedulers()
 
     private fun getTransaction(placa: String) =
-        transactionRepo.getTransaction(placa).toObservable()
+        transactionRepo.getTransaction(placa)
 
-    fun calcPrice(placa: String) = getTransaction(placa)
-        .flatMap {
-            priceRepository.getPrice(it.horaIngreso, Date().time, it.typeVehiculo, it.cilindraje!!)
+    fun calcPrice(placa: String): Observable<Int> = getTransaction(placa)
+        .flatMap { response ->
+            when (response) {
+                is TransactionModel -> priceRepository.getPrice(
+                    response.horaIngreso,
+                    Date().time,
+                    response.typeVehiculo,
+                    response.cilindraje!!
+                )
+                is Int -> Observable.just(response)
+                else -> Observable.just(0)
+            }
+
         }
         .applySchedulers()
 
     fun payment(placa: String, price: Int) = getTransaction(placa)
         .flatMap {
-            transactionRepo.updateTransaction(it, price)
+            transactionRepo.updateTransaction(it as TransactionModel, price)
         }.applySchedulers()
 }

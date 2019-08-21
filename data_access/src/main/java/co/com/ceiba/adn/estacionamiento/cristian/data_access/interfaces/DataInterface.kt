@@ -5,8 +5,8 @@ import co.com.ceiba.adn.estacionamiento.cristian.data_access.manage_data.Transac
 import io.reactivex.Observable
 
 interface DataInterface {
-    fun insertData(transaccion: Transaccion): Observable<Int>
+    fun insertData(transaccion: Transaccion)
     fun getData(placa:String): Transaccion?
-    fun updateData(transaccion: Transaccion,price:Int):Observable<Unit>
-    fun getNumberOfTransactionsByType(type:Int):Observable<Boolean>
+    fun updateData(transaccion: Transaccion)
+    fun getNumberOfTransactionsByType(type:Int):Int
 }
