@@ -59,7 +59,7 @@ dependencies {
     //injeccion de dependencias
     implementation "org.koin:koin-core:2.0.1"
     implementation "org.koin:koin-androidx-viewmodel:2.0.1"
-//    implementation 'org.koin:koin-android-viewmodel:2.0.1'
+    testImplementation 'org.koin:koin-test:2.0.1'
 
     //room
     implementation "androidx.room:room-runtime:$room_version"

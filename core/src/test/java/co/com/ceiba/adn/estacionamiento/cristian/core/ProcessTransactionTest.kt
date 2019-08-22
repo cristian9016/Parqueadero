@@ -1,22 +1,31 @@
 package co.com.ceiba.adn.estacionamiento.cristian.core
 
+import co.com.ceiba.adn.estacionamiento.cristian.core.di.coreModule
+import co.com.ceiba.adn.estacionamiento.cristian.core.interfaces.ProcessTransactionInterface
 import co.com.ceiba.adn.estacionamiento.cristian.core.negocio.ProcessTransaction
 import co.com.ceiba.adn.estacionamiento.cristian.core.util.Constants
 import co.com.ceiba.adn.estacionamiento.cristian.core.util.EntityToModel
+import co.com.ceiba.adn.estacionamiento.cristian.data_access.di.dataModule
 import co.com.ceiba.adn.estacionamiento.cristian.data_access.entity.Transaccion
 import co.com.ceiba.adn.estacionamiento.cristian.data_access.interfaces.DataInterface
 import co.com.ceiba.adn.estacionamiento.cristian.data_access.manage_data.TransactionData
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.koin.core.context.stopKoin
+import org.koin.test.KoinTest
+import org.koin.test.inject
+import org.koin.test.mock.declareMock
+import org.mockito.BDDMockito.given
 import org.mockito.Mockito
 
 
 class ProcessTransactionTest {
 
     lateinit var transaction: Transaccion
-    lateinit var dataMock: TransactionData
-    lateinit var processTransaction: ProcessTransaction
+    lateinit var dataMock: DataInterface
+    lateinit var processTransaction: ProcessTransactionInterface
     var value = -1
     var state = false
 
@@ -28,7 +37,7 @@ class ProcessTransactionTest {
             null, "kjh18", 1234L,
             0, Constants.TYPE_CAR, true, 0
         )
-        dataMock = Mockito.mock(TransactionData::class.java)
+        dataMock = Mockito.mock(DataInterface::class.java)
         processTransaction = ProcessTransaction(dataMock)
     }
 
@@ -99,5 +108,4 @@ class ProcessTransactionTest {
         //assert
         assertEquals(false, state)
     }
-
 }

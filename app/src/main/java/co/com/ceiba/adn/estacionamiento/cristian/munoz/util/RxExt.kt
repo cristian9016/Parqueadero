@@ -4,7 +4,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.toObservable
 import io.reactivex.schedulers.Schedulers
 
 fun <T> Observable<T>.applySchedulers(): Observable<T> = compose {
