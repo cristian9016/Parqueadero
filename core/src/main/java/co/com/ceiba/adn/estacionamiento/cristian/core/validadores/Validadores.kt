@@ -3,7 +3,6 @@ package co.com.ceiba.adn.estacionamiento.cristian.core.validadores
 import co.com.ceiba.adn.estacionamiento.cristian.core.util.Constants
 import kotlin.math.ceil
 import kotlin.math.floor
-import kotlin.math.roundToInt
 
 object Validadores {
 

@@ -2,7 +2,9 @@ package co.com.ceiba.adn.estacionamiento.cristian.munoz.ui
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import co.com.ceiba.adn.estacionamiento.cristian.core.util.Constants
 import co.com.ceiba.adn.estacionamiento.cristian.munoz.R
@@ -43,18 +45,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("CheckResult")
     override fun onResume() {
         super.onResume()
 
-        //--------------------click en boton de agregar transaction------------------------
+//--------------------------------------click en boton de agregar transaction------------------------
         dis add btnAddIn.clicks()
             .flatMap {
                 //se valida que los campos no esten vacios
                 validateForm(
-                    R.string.empty_fields,
-                    R.string.placa_min_size,
-                    R.string.placa_max_size,
                     etPlaca.toText(),
                     if (etCilindraje.toText().isNotEmpty()) etCilindraje.toText() else "0"
                 )
@@ -87,15 +87,10 @@ class MainActivity : AppCompatActivity() {
                     progress.hide()
                 }
             )
-        //------------------------calcular precio--------------------------
+//----------------------------------------calcular precio--------------------------
         dis add btnCalcPrice.clicks()
             .flatMap {
-                validateForm(
-                    R.string.empty_fields,
-                    R.string.placa_min_size,
-                    R.string.placa_max_size,
-                    etPlaca.toText()
-                )
+                validateForm(etPlaca.toText())
             }
             .flatMap {
                 progress.show()
@@ -118,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                 }
             )
 
-        //-----------------------realizar el pago----------------------------------------
+//----------------------------------------realizar el pago----------------------------------------
         dis add btnPayment.clicks()
             .subscribe {
                 if (tvValueToPay.text == getString(R.string.value_to_pay_text))
@@ -127,12 +122,8 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun pay() = validateForm(
-        R.string.empty_fields,
-        R.string.placa_min_size,
-        R.string.placa_max_size,
-        etPlaca.toText()
-    )
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun pay() = validateForm(etPlaca.toText())
         .flatMap {
             progress.show()
             mainViewModel.payment(it[0], tvValueToPay.toInt())
@@ -151,7 +142,7 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-    //dialog
+    //configurar dialog
     private fun configDialog() {
         progress = indeterminateProgressDialog(R.string.please_wait)
         progress.setCancelable(false)

@@ -61,11 +61,11 @@ pipeline{
         }
         success{
             echo 'esto solo corre si fue exitoso'
-            junit 'app/build/test-results/test/*.xml'
+            junit 'core/build/test-results/testDebugUnitTest/*.xml'
         }
         failure {
         echo 'This will run only if failed'
-        mail (to:'cristian.munoz@ceiba.com.co​',subject: "​Failed Pipeline:${currentBuild.fullDisplayName}​",body: "​Something is wrong with ${env.BUILD_URL}​")
+        mail (to: 'cristian.munoz@ceiba.com.co​',subject: "​Failed Pipeline:${currentBuild.fullDisplayName}​",body: "​Something is wrong with ${env.BUILD_URL}​")
          }
         unstable{
             echo 'esto solo corre si la ejecucion fue marcada como inestable'

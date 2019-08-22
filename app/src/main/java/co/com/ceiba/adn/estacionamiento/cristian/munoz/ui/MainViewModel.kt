@@ -18,7 +18,7 @@ class MainViewModel constructor(
         transactionRepo.checkNumberOfTransactionsByType(type)
             .flatMap {
                 if (it)
-                    transactionRepo.insertTransaction(
+                    transactionRepo.validateTransactionforInsertion(
                         TransactionModel(
                             placa = placa,
                             horaIngreso = Date().time,

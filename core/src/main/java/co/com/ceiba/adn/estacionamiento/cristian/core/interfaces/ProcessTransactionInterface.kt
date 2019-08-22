@@ -6,7 +6,7 @@ import io.reactivex.Observable
 interface ProcessTransactionInterface {
 
     //verificar placa, verificar que no exista e insertar
-    fun processTransactionForInsertion(transactionModel: TransactionModel): Observable<Int>
+    fun insertTransaction(transactionModel: TransactionModel): Observable<Int>
 
     fun getTransaction(placa: String): Observable<Any>
 

@@ -1,31 +1,19 @@
 package co.com.ceiba.adn.estacionamiento.cristian.core
 
-import co.com.ceiba.adn.estacionamiento.cristian.core.di.coreModule
-import co.com.ceiba.adn.estacionamiento.cristian.core.interfaces.ProcessTransactionInterface
+import co.com.ceiba.adn.estacionamiento.cristian.core.mock_repository.DataInterfaceMock
+import co.com.ceiba.adn.estacionamiento.cristian.core.model.TransactionModel
 import co.com.ceiba.adn.estacionamiento.cristian.core.negocio.ProcessTransaction
 import co.com.ceiba.adn.estacionamiento.cristian.core.util.Constants
-import co.com.ceiba.adn.estacionamiento.cristian.core.util.EntityToModel
-import co.com.ceiba.adn.estacionamiento.cristian.data_access.di.dataModule
-import co.com.ceiba.adn.estacionamiento.cristian.data_access.entity.Transaccion
-import co.com.ceiba.adn.estacionamiento.cristian.data_access.interfaces.DataInterface
-import co.com.ceiba.adn.estacionamiento.cristian.data_access.manage_data.TransactionData
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.koin.core.context.stopKoin
-import org.koin.test.KoinTest
-import org.koin.test.inject
-import org.koin.test.mock.declareMock
-import org.mockito.BDDMockito.given
-import org.mockito.Mockito
 
 
 class ProcessTransactionTest {
 
-    lateinit var transaction: Transaccion
-    lateinit var dataMock: DataInterface
-    lateinit var processTransaction: ProcessTransactionInterface
+    val dataMock = DataInterfaceMock()
+    val processTransaction = ProcessTransaction(dataMock)
+    val transaction = TransactionModel(null,"kjh123",1234,0,Constants.TYPE_CAR,true,0)
     var value = -1
     var state = false
 
@@ -33,73 +21,37 @@ class ProcessTransactionTest {
     fun onPrepared() {
         value = -1
         state = false
-        transaction = Transaccion(
-            null, "kjh18", 1234L,
-            0, Constants.TYPE_CAR, true, 0
-        )
-        dataMock = Mockito.mock(DataInterface::class.java)
-        processTransaction = ProcessTransaction(dataMock)
     }
 
     @Test
-    fun validateInsertTransaction() {
+    fun validateInsertion(){
         //arrange
-        Mockito.`when`(dataMock.getData("kjh18")).thenReturn(null)
-        Mockito.doNothing().`when`(dataMock).insertData(transaction)
         //act
-        processTransaction.processTransactionForInsertion(EntityToModel.transactionModel(transaction))
+        processTransaction.insertTransaction(transaction)
             .subscribe {
                 value = it
             }
         //assert
-        assertEquals(Constants.INSERT_SUCCESS, value)
+        assertEquals(Constants.INSERT_SUCCESS,value)
     }
 
     @Test
-    fun validateSpacesForCars() {
+    fun validateGetNullTransaction() {
         //arrange
-        Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_CAR)).thenReturn(19)
-        //act
-        processTransaction.checkNumberOfTransactionsByType(Constants.TYPE_CAR)
-            .subscribe {
-                state = it
-            }
-        //assert
-        assertEquals(true, state)
-    }
 
-    @Test
-    fun validateNoSpacesForCars() {
-        //arrange
-        Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_CAR)).thenReturn(20)
         //act
-        processTransaction.checkNumberOfTransactionsByType(Constants.TYPE_CAR)
+        processTransaction.getTransaction("kjh18")
             .subscribe {
-                state = it
+                value = it as Int
             }
         //assert
-        assertEquals(false, state)
-    }
-
-    @Test
-    fun validateSpacesForMotos() {
-        //arrange
-        Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE))
-            .thenReturn(9)
-        //act
-        processTransaction.checkNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)
-            .subscribe {
-                state = it
-            }
-        //assert
-        assertEquals(true, state)
+        assertEquals(Constants.ERROR_CODE_VEHICLE_DOES_NOT_EXIST, value)
     }
 
     @Test
     fun validateNoSpacesForMotos() {
         //arrange
-        Mockito.`when`(dataMock.getNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE))
-            .thenReturn(10)
+
         //act
         processTransaction.checkNumberOfTransactionsByType(Constants.TYPE_MOTORCYCLE)
             .subscribe {

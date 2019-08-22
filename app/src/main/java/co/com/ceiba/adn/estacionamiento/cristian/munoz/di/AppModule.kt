@@ -11,7 +11,7 @@ val appModule = module {
     single {
         AppDatabase.getInstance(androidApplication())
     }
-    single { TransactionRepository(get()) }
+    single { TransactionRepository(get(),get()) }
     single { CalcPriceRepository(get()) }
 
 }
