@@ -4,19 +4,15 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.NoMatchingViewException
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.runner.AndroidJUnit4
-import co.com.ceiba.adn.estacionamiento.cristian.core.util.Constants
-import co.com.ceiba.adn.estacionamiento.cristian.munoz.ui.MainActivity
-import junit.framework.AssertionFailedError
+import co.com.ceiba.adn.estacionamiento.cristian.munoz.ui.main.MainActivity
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
-import kotlin.random.Random
 
 
 @RunWith(AndroidJUnit4::class)
