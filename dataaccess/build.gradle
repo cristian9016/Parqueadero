@@ -26,6 +26,15 @@ android {
         }
     }
 
+    flavorDimensions "version"
+    productFlavors{
+        prod{
+            dimension "version"
+        }
+        dev{
+            dimension "version"
+        }
+    }
 }
 
 dependencies {

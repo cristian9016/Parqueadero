@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         dis add btnAddIn.clicks()
             .flatMap {
                 //se valida que los campos no esten vacios
-                closeKeyboard(view = currentFocus!!)
+                if (currentFocus != null) closeKeyboard(view = currentFocus!!)
                 validateForm(
                     etPlaca.toText(),
                     if (etCilindraje.toText().isNotEmpty()) etCilindraje.toText() else "0"

@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
     defaultConfig {
@@ -14,6 +15,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,12 +25,23 @@ android {
             testCoverageEnabled = true
         }
     }
+
     lintOptions {
         abortOnError false
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    flavorDimensions "version"
+    productFlavors{
+        prod{
+            dimension "version"
+        }
+        dev{
+            dimension "version"
+        }
     }
 }
 
@@ -63,7 +76,7 @@ dependencies {
     //injeccion de dependencias
     implementation "org.koin:koin-core:2.0.1"
     implementation "org.koin:koin-androidx-viewmodel:2.0.1"
-    testImplementation 'org.koin:koin-test:2.0.1'
+    androidTestImplementation 'org.koin:koin-test:2.0.1'
 
     //room
     implementation "androidx.room:room-runtime:$room_version"

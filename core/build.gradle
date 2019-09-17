@@ -36,6 +36,18 @@ android {
         }
     }
 
+    flavorDimensions "version"
+    publishNonDefault true
+    productFlavors{
+        prod{
+            dimension "version"
+        }
+        dev{
+            dimension "version"
+
+        }
+    }
+
 }
 
 dependencies {

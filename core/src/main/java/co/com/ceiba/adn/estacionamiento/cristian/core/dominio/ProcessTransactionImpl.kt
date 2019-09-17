@@ -1,7 +1,7 @@
 package co.com.ceiba.adn.estacionamiento.cristian.core.dominio
 
 import co.com.ceiba.adn.estacionamiento.cristian.core.interfaces.ProcessTransaction
-import co.com.ceiba.adn.estacionamiento.cristian.core.repository.real.TransactionDataManager
+import co.com.ceiba.adn.estacionamiento.cristian.core.repository.TransactionDataManager
 import co.com.ceiba.adn.estacionamiento.cristian.core.model.Transaction
 import co.com.ceiba.adn.estacionamiento.cristian.core.Constants
 import java.util.*

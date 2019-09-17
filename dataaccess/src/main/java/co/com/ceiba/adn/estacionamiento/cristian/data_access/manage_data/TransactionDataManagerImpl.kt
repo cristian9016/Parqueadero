@@ -1,6 +1,6 @@
 package co.com.ceiba.adn.estacionamiento.cristian.data_access.manage_data
 
-import co.com.ceiba.adn.estacionamiento.cristian.core.repository.real.TransactionDataManager
+import co.com.ceiba.adn.estacionamiento.cristian.core.repository.TransactionDataManager
 import co.com.ceiba.adn.estacionamiento.cristian.core.model.Transaction
 import co.com.ceiba.adn.estacionamiento.cristian.data_access.dao.TransactionDao
 import co.com.ceiba.adn.estacionamiento.cristian.data_access.mapper.toTransaction
